@@ -1,0 +1,12 @@
+torch== 1.12.0
+tensorboardX
+h5py
+scipy
+numpy
+matplotlib
+einops
+timm
+scikit-learn
+xlwt
+glob2
+torchvision

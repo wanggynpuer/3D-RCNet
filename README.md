@@ -1,15 +1,49 @@
-# 3D-RCNet
+### [3D-RCNet:Learning from Transformer to Build a 3D Relational ConvNet for Hyperspectral Image Classification](https://arxiv.org/abs/2408.13728)
 
-**目录和文件结构**：
+<p align="center">
+<a href="https://arxiv.org/search/cs?searchtype=author&query=Jing,+H">Haizhao Jing</a>, 
+<a href="https://arxiv.org/search/cs?searchtype=author&query=Wan,+L">Liuwei Wan</a>,
+<a href="https://arxiv.org/search/cs?searchtype=author&query=Xue,+X"> Xizhe Xue</a>,
+<a href="https://arxiv.org/search/cs?searchtype=author&query=Zhang,+H"> Haokui Zhang</a>,
+<a href="https://arxiv.org/search/cs?searchtype=author&query=Li,+Y">Ying Li</a>,
+</p><br>
+
+<br>
+
+### The 3D-RCNet framework
+
+<img src="./assets/Fig1.png" alt="description" width="100%">
+
+**Fig1. The 3D-RCNet framework proposed by us, and the framework uses four stages of blocks for feature extraction at different depths on HSI data**<br>
+
+<br>
+
+### Comparison of the three methods
+
+<img src="./assets/Fig2.png" alt="description" width="85%">
+
+**Fig2. Comparison of the three methods, the total MACs required by each method with the same input. (a) is 3D-ConvBlock,(b) is Self-attention, and (c) is our proposed 3D-RCBlock. **<br>
+
+<br>
+
+<img src="./assets/table1.png" alt="description" width="100%">
+
+<br>
+
+### Directory and File Structure
 
 ```
 ./                                            # current (project) directory
+│
+├── assets									  # figures and tables 
+│
 ├── data/                                     # Files to be processed in the dataset
 │   └── HSI_datasets/
 │       ├── data_h5/
 │       └── samples/
 ├── data_preprocess/
 │   ├── data_list/                            # The preprocessed data is placed in the data_list folder.
+		├──Indian_pines_split.txt
 │   ├── functions_for_samples_extraction.py
 │   ├── mat_2_h5.py                           # Dataset format conversion
 │   └── preprocess.py                         # Preprocessing the dataset
@@ -21,44 +55,33 @@
     └── main_cv_paper.py
 ```
 
-**data文件夹中放置的是待处理的数据集文件**
+**🔥🔥🔥Note:** The `Indian_pines.txt`, `Indian_pines_test.txt`, and `Indian_pines_train.txt` files generated in the `data_list` directory are created by executing `mat_2_h5.py` and `preprocessing.py` in sequence.🔥🔥🔥<br>
 
-**data_preprocess文件夹中包含：**
+**The `data` folder contains the datasets to be processed**
 
-data_list文件夹中放置preprocess后的数据
+**`data_preprocess` folder:**
 
-- mat_2_h5.py：数据集格式转换
+The `data_list` folder contains preprocessed data.
 
-- preprocess.py：预处理数据集
+- `mat_2_h5.py`: Dataset format conversion
+- `preprocess.py`: Data preprocessing
+  - `functions_for_samples_extraction.py`
 
-  - functions_for_samples_extraction.py
+**`training`folder:**
 
-**training文件夹中包含：**
+The `models` folder contains our proposed 3D-RCNet.
 
-models文件夹中放置我们提出的3D-RCNet
-
-- get_cls_map.py: 获取伪彩合成图
-- main_cv_paper.py: 训练程序
+- `get_cls_map.py`: Generate pseudo-color composite images
+- `main_cv_paper.py`: Training script
   - functions_for_training.py
   - functions_for_evaluating.py
 
-## 环境配置与安装
-
-`python版本: 3.11`
-
-[python下载安装](https://www.python.org/downloads/)
 
 
-[pytorch下载安装](https://pytorch.org/)
+<br>
+
+## **Environment Setup and Installation**
+
+`python: 3.11`
 
 **NOTE: Latest PyTorch requires Python 3.8 or later.**
-
-### 使用 pip 安装pytorch
-
-#### 安装 CPU 版本
-
-`pip3 install torch torchvision torchaudio`
-
-#### 安装 GPU 版本
-
-`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121`

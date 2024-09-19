@@ -7,7 +7,7 @@ import torch.optim as optim
 import sys
 
 sys.path.append('./models/')
-from Convnext3D import dict
+from 3DRCNet import dict
 from functions_for_training import *
 
 sys.path.append('..')

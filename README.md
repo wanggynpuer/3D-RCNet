@@ -1,12 +1,6 @@
 ### [3D-RCNet:Learning from Transformer to Build a 3D Relational ConvNet for Hyperspectral Image Classification](https://arxiv.org/abs/2408.13728)
 
-<p align="center">
-<a href="https://arxiv.org/search/cs?searchtype=author&query=Jing,+H">Haizhao Jing</a>, 
-<a href="https://arxiv.org/search/cs?searchtype=author&query=Wan,+L">Liuwei Wan</a>,
-<a href="https://arxiv.org/search/cs?searchtype=author&query=Xue,+X"> Xizhe Xue</a>,
-<a href="https://arxiv.org/search/cs?searchtype=author&query=Zhang,+H"> Haokui Zhang</a>,
-<a href="https://arxiv.org/search/cs?searchtype=author&query=Li,+Y">Ying Li</a>,
-</p><br>
+<br>
 
 <br>
 
@@ -14,7 +8,7 @@
 
 <img src="./assets/Fig1.png" alt="description" width="100%">
 
-**Fig1. The 3D-RCNet framework proposed by us, and the framework uses four stages of blocks for feature extraction at different depths on HSI data**<br>
+Fig1. The 3D-RCNet framework proposed by us, and the framework uses four stages of blocks for feature extraction at different depths on HSI data<br>
 
 <br>
 
@@ -22,11 +16,97 @@
 
 <img src="./assets/Fig2.png" alt="description" width="85%">
 
-**Fig2. Comparison of the three methods, the total MACs required by each method with the same input. (a) is 3D-ConvBlock,(b) is Self-attention, and (c) is our proposed 3D-RCBlock. **<br>
+Fig2. Comparison of the three methods, the total MACs required by each method with the same input. (a) is 3D-ConvBlock,(b) is Self-attention, and (c) is our proposed 3D-RCBlock. <br>
 
 <br>
 
 <img src="./assets/table1.png" alt="description" width="100%">
+
+<br>
+
+<br>
+
+## Experimental Results
+
+<img src="./assets/Fig3.png" alt="description" width="100%">
+
+Fig3.False color composites of experimental HSI datasets and the ground truth of land cover type. 
+
+**(a)** Indian Pines Dataset. 
+
+**(b)** Pavia University Dataset. 
+
+**(c)** Houston 2013 Dataset.<br>
+
+<br>
+
+<img src="./assets/Fig4.png" alt="description" width="100%">Fig4.In comparative experiments conducted on the Indian Pine dataset, we visualize the prediction results. 
+
+**(a)** is the Ground Truth. 
+
+**(b)** is the prediction result of 3D CNN. 
+
+**(c)** is the prediction result of LWNet. 
+
+**(d)** is the prediction result of SSFTT. 
+
+**(e)** is the prediction result of SpectralForm. 
+
+**(f)** is the prediction result of GraphGST. 
+
+**(g)** is the prediction result of our proposed 3D-RCNet. <br>
+
+<br>
+
+<img src="./assets/table3.png" alt="description" width="100%">
+
+<img src="./assets/table4.png" alt="description" width="100%">
+
+<br>
+
+<br>
+
+<img src="./assets/Fig5.png" alt="description" width="100%">
+
+Fig5. In comparative experiments conducted on the Pavia University dataset, we visualize the prediction results. **(a)** is the Ground Truth. **(b)** is the prediction result of 3D CNN. **(c)** is the prediction result of LWNet. **(d)** is the prediction result of SSFTT. **(e)** is the prediction result of SpectralForm. **(f)** is the prediction result of GraphGST. **(g)** is the prediction result of our proposed 3D-RCNet. <br>
+
+<br>
+
+<br>
+
+<img src="./assets/table5.png" alt="description" width="100%">
+
+<img src="./assets/Fig6.png" alt="description" width="100%">
+
+Fig6. In comparative experiments conducted on the Houston 2013 dataset, we visualize the prediction results. (a) is the Ground Truth. (b) is the prediction result of 3D CNN. (c) is the prediction result of LWNet. (d) is the prediction result of SSFTT. (e) is the prediction result of SpectralForm. (f) is the prediction result of GraphGST. (g) is the prediction result of our proposed 3D-RCNet.<br>
+
+
+
+<br>
+
+<img src="./assets/table6.png" alt="description" width="100%">
+
+<br>
+
+<img src="./assets/Fig7.png" alt="description" width="100%">
+
+Fig7. Experimenting the effect of different kernel sizes on classification accuracy in Stage 4<br>
+
+
+
+<img src="./assets/Fig8.png" alt="description" width="100%">
+
+Fig8. The effect of the number of 3D-RCBlock on classification accuracy by replacing all blocks in the stage with 3D-RCBlock<br>
+
+<br>
+
+
+
+<img src="./assets/Fig9.png" alt="description" width="75%">
+
+Fig9. Feature extraction on Indian Pine dataset using 3D-ConvBlock and 3D-RCBlock: 3D-ConvBlock utilizes a static kernel to extract features from data with varying spatial positions, while our 3D-RCBlock generates dynamic kernels based on the local relationships within the data window for feature extraction.
+
+<br>
 
 <br>
 

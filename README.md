@@ -36,7 +36,9 @@ Fig3.False color composites of experimental HSI datasets and the ground truth of
 
 **(b)** Pavia University Dataset. 
 
-**(c)** Houston 2013 Dataset.<br>
+**(c)** Houston 2013 Dataset.
+
+**(d)** WHU-Hi-LongKou dataset.<br>
 
 <br>
 
@@ -84,27 +86,45 @@ Fig6. In comparative experiments conducted on the Houston 2013 dataset, we visua
 
 <br>
 
+<br>
+
 <img src="./assets/table6.png" alt="description" width="100%">
 
-<br>
+<img src="./assets/Fig10.png" alt="description" width="100%">
 
-<img src="./assets/Fig7.png" alt="description" width="100%">
-
-Fig7. Experimenting the effect of different kernel sizes on classification accuracy in Stage 4<br>
-
-
-
-<img src="./assets/Fig8.png" alt="description" width="100%">
-
-Fig8. The effect of the number of 3D-RCBlock on classification accuracy by replacing all blocks in the stage with 3D-RCBlock<br>
+Fig7. In comparative experiments conducted on the WHU-Hi-LongKou dataset, we visualize the prediction results. (a) is the Ground Truth. (b) is the prediction result of 3D CNN. (c) is the prediction result of LWNet. (d) is the prediction result of SSFTT. (e) is the prediction result of SpectralForm. (f) is the prediction result of GraphGST. (g) is the prediction result of our proposed 3D-RCNet.
 
 <br>
 
+<br>
+
+<img src="./assets/Fig8.png" alt="description" width="80%">
+
+Fig8. The predicted Overall Accuracy on the four datasets for our proposed 3D-RCNet and the five comparison methods.
+
+<br>
+
+<img src="./assets/table7.png" alt="description" width="100%">
+
+<br>
+
+<img src="./assets/Fig9.png" alt="description" width="100%">
+
+Fig9. Experimenting the effect of different kernel sizes on classification accuracy in Stage 4<br>
 
 
-<img src="./assets/Fig9.png" alt="description" width="75%">
 
-Fig9. Feature extraction on Indian Pine dataset using 3D-ConvBlock and 3D-RCBlock: 3D-ConvBlock utilizes a static kernel to extract features from data with varying spatial positions, while our 3D-RCBlock generates dynamic kernels based on the local relationships within the data window for feature extraction.
+<img src="./assets/Fig10.png" alt="description" width="100%">
+
+Fig10. The effect of the number of 3D-RCBlock on classification accuracy by replacing all blocks in the stage with 3D-RCBlock<br>
+
+<br>
+
+
+
+<img src="./assets/Fig11.png" alt="description" width="75%">
+
+Fig11. Feature extraction on Indian Pine dataset using 3D-ConvBlock and 3D-RCBlock: 3D-ConvBlock utilizes a static kernel to extract features from data with varying spatial positions, while our 3D-RCBlock generates dynamic kernels based on the local relationships within the data window for feature extraction.
 
 <br>
 

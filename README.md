@@ -20,7 +20,7 @@ Fig2. Comparison of the three methods, the total MACs required by each method wi
 
 <br>
 
-<img src="./assets/table1.png" alt="description" width="100%">
+<img src="./assets/table1.png" alt="description" width="80%">
 
 <br>
 
@@ -39,6 +39,8 @@ Fig3.False color composites of experimental HSI datasets and the ground truth of
 **(c)** Houston 2013 Dataset.
 
 **(d)** WHU-Hi-LongKou dataset.<br>
+
+<img src="./assets/table2.png" alt="description" width="100%">
 
 <br>
 
@@ -60,9 +62,9 @@ Fig3.False color composites of experimental HSI datasets and the ground truth of
 
 <br>
 
-<img src="./assets/table3.png" alt="description" width="100%">
+<img src="./assets/table3.png" alt="description" width="80%">
 
-<img src="./assets/table4.png" alt="description" width="100%">
+<img src="./assets/table4.png" alt="description" width="80%">
 
 <br>
 
@@ -76,7 +78,7 @@ Fig5. In comparative experiments conducted on the Pavia University dataset, we v
 
 <br>
 
-<img src="./assets/table5.png" alt="description" width="100%">
+<img src="./assets/table5.png" alt="description" width="80%">
 
 <img src="./assets/Fig6.png" alt="description" width="100%">
 
@@ -88,9 +90,9 @@ Fig6. In comparative experiments conducted on the Houston 2013 dataset, we visua
 
 <br>
 
-<img src="./assets/table6.png" alt="description" width="100%">
+<img src="./assets/table6.png" alt="description" width="80%">
 
-<img src="./assets/Fig10.png" alt="description" width="100%">
+<img src="./assets/Fig7.png" alt="description" width="100%">
 
 Fig7. In comparative experiments conducted on the WHU-Hi-LongKou dataset, we visualize the prediction results. (a) is the Ground Truth. (b) is the prediction result of 3D CNN. (c) is the prediction result of LWNet. (d) is the prediction result of SSFTT. (e) is the prediction result of SpectralForm. (f) is the prediction result of GraphGST. (g) is the prediction result of our proposed 3D-RCNet.
 
@@ -104,7 +106,7 @@ Fig8. The predicted Overall Accuracy on the four datasets for our proposed 3D-RC
 
 <br>
 
-<img src="./assets/table7.png" alt="description" width="100%">
+<img src="./assets/table7.png" alt="description" width="80%">
 
 <br>
 

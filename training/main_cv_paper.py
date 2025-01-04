@@ -7,7 +7,7 @@ import torch.optim as optim
 import sys
 
 sys.path.append('./models/')
-from 3DRCNet import dict
+from models.DRCNet import dict
 from functions_for_training import *
 
 sys.path.append('..')
@@ -20,7 +20,7 @@ import get_cls_map
 
 # Training settings
 parser = argparse.ArgumentParser(description='HSI classification')
-parser.add_argument('--dataset', type=str, default='PaviaU')
+parser.add_argument('--dataset', type=str, default='Indian_pines')
 parser.add_argument('--model_name', type=str, default='HSIVit')
 parser.add_argument('--use_cuda', type=bool, default=True)
 parser.add_argument('--restore', type=bool, default=False)
@@ -119,7 +119,7 @@ for epoch in range(start_epoch + 1, args.epochs + 1):
         torch.save(model.cpu().state_dict(), model_name)
         # if args.use_cuda: model.cuda()
         # train_loss, train_acc = val(model, train_loader, args)
-        # print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))
+        # print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))   
         # val_loss, val_acc = val(model, val_loader, args)
         # print('val_loss: {:.4f}, val_acc: {:.2f}%'.format(val_loss, val_acc))
         #

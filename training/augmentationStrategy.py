@@ -11,9 +11,9 @@ def rand_bbox(size, lam):
     W = size[4]
 
     cut_rat = np.sqrt(1. - lam)
-    cut_s = np.int(S * cut_rat)
-    cut_h = np.int(H * cut_rat)
-    cut_w = np.int(W * cut_rat)
+    cut_s = np.int32(S * cut_rat)
+    cut_h = np.int32(H * cut_rat)
+    cut_w = np.int32(W * cut_rat)
 
     # uniform
     cs = np.random.randint(S)

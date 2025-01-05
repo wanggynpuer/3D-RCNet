@@ -122,15 +122,15 @@ for epoch in range(start_epoch + 1, args.epochs + 1):
         # val_loss, val_acc = val(model, val_loader, args)
         # print('val_loss: {:.4f}, val_acc: {:.2f}%'.format(val_loss, val_acc))
         #
-        test_loss, test_acc = val(model, test_loader, args)
-        print('test_loss: {:.4f}, test_acc: {:.2f}%'.format(test_loss, test_acc))
-        writer.add_scalars('loss',{'Train':train_loss,'Test':test_loss}, epoch)
-        writer.add_scalars('acc',{'Train':train_acc,'Test':test_acc}, epoch)
-        writer.add_scalars('lr',{'lr':lr},epoch)
-        with open(train_info_record_txt, 'a') as f:
-            f.write('timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f},test_loss:{:.6f}, test_acc:{:.2f}'.format(
-                (end-start)/60, optimizer.param_groups[0]['lr'], epoch, train_loss, train_acc, test_loss, test_acc) + '\n'
-            )
+        # # test_loss, test_acc = val(model, test_loader, args)
+        # # print('test_loss: {:.4f}, test_acc: {:.2f}%'.format(test_loss, test_acc))
+        # # writer.add_scalars('loss',{'Train':train_loss,'Test':test_loss}, epoch)
+        # # writer.add_scalars('acc',{'Train':train_acc,'Test':test_acc}, epoch)
+        # # writer.add_scalars('lr',{'lr':lr},epoch)
+        # # with open(train_info_record_txt, 'a') as f:
+        # #     f.write('timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f},test_loss:{:.6f}, test_acc:{:.2f}'.format(
+        # #         (end-start)/60, optimizer.param_groups[0]['lr'], epoch, train_loss, train_acc, test_loss, test_acc) + '\n'
+        # #     )
         # with open(train_info_record_txt, 'a') as f:
         #     f.write(
         #         'timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f}, val_loss:{:.6f}, val_acc:{:.2f}'.format(

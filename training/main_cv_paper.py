@@ -2,12 +2,12 @@ import time
 import argparse
 import os
 
-os.environ['CUDA_VISIBLE_DEVICES'] = "1, 3"
+os.environ['CUDA_VISIBLE_DEVICES'] = "1"
 import torch.optim as optim
 import sys
 
 sys.path.append('./models/')
-from 3DRCNet import dict
+from models.DRCNet import dict
 from functions_for_training import *
 
 sys.path.append('..')
@@ -20,7 +20,7 @@ import get_cls_map
 
 # Training settings
 parser = argparse.ArgumentParser(description='HSI classification')
-parser.add_argument('--dataset', type=str, default='PaviaU')
+parser.add_argument('--dataset', type=str, default='Indian_pines')
 parser.add_argument('--model_name', type=str, default='HSIVit')
 parser.add_argument('--use_cuda', type=bool, default=True)
 parser.add_argument('--restore', type=bool, default=False)
@@ -104,12 +104,11 @@ start_epoch = 0
 if args.restore and len(os.listdir(trained_model_dir)):
     model, start_epoch = model_restore(model, trained_model_dir)
 
-# writer = SummaryWriter(logdir='log')
-writer = SummaryWriter()
+writer = SummaryWriter(logdir='log')
 for epoch in range(start_epoch + 1, args.epochs + 1):
     start = time.time()
     lr = scheduler.get_last_lr()[0]
-    train(epoch, lr, model, train_loader, optimizer, args)
+    # train(epoch, lr, model, train_loader, optimizer, args)
 
     end = time.time()
     print('epoch: {} , cost {} seconds'.format(epoch, end - start))
@@ -119,19 +118,19 @@ for epoch in range(start_epoch + 1, args.epochs + 1):
         torch.save(model.cpu().state_dict(), model_name)
         # if args.use_cuda: model.cuda()
         # train_loss, train_acc = val(model, train_loader, args)
-        # print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))
+        # print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))   
         # val_loss, val_acc = val(model, val_loader, args)
         # print('val_loss: {:.4f}, val_acc: {:.2f}%'.format(val_loss, val_acc))
         #
-        # # test_loss, test_acc = val(model, test_loader, args)
-        # # print('test_loss: {:.4f}, test_acc: {:.2f}%'.format(test_loss, test_acc))
-        # # writer.add_scalars('loss',{'Train':train_loss,'Val':val_loss,'Test':test_loss}, epoch)
-        # # writer.add_scalars('acc',{'Train':train_acc,'Val':val_acc,'Test':test_acc}, epoch)
-        # # writer.add_scalars('lr',{'lr':lr},epoch)
-        # # with open(train_info_record_txt, 'a') as f:
-        # #     f.write('timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f}, val_loss:{:.6f}, val_acc:{:.2f},test_loss:{:.6f}, test_acc:{:.2f}'.format(
-        # #         (end-start)/60, optimizer.param_groups[0]['lr'], epoch, train_loss, train_acc, val_loss, val_acc,test_loss, test_acc) + '\n'
-        # #     )
+        test_loss, test_acc = val(model, test_loader, args)
+        print('test_loss: {:.4f}, test_acc: {:.2f}%'.format(test_loss, test_acc))
+        writer.add_scalars('loss',{'Train':train_loss,'Test':test_loss}, epoch)
+        writer.add_scalars('acc',{'Train':train_acc,'Test':test_acc}, epoch)
+        writer.add_scalars('lr',{'lr':lr},epoch)
+        with open(train_info_record_txt, 'a') as f:
+            f.write('timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f},test_loss:{:.6f}, test_acc:{:.2f}'.format(
+                (end-start)/60, optimizer.param_groups[0]['lr'], epoch, train_loss, train_acc, test_loss, test_acc) + '\n'
+            )
         # with open(train_info_record_txt, 'a') as f:
         #     f.write(
         #         'timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f}, val_loss:{:.6f}, val_acc:{:.2f}'.format(

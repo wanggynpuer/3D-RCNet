@@ -10,13 +10,13 @@ import h5py
 # dataset_HSI = 'IGRSS_2013'
 # dataset_gt = 'IGRSS_2013_gt'
 
-# dataset = 'Indian_pines'
-# dataset_HSI = 'indian_pines_corrected'
-# dataset_gt = 'indian_pines_gt'
+dataset = 'Indian_pines'
+dataset_HSI = 'indian_pines_corrected'
+dataset_gt = 'indian_pines_gt'
 
-dataset = 'Pavia'
-dataset_HSI = 'pavia'
-dataset_gt = 'pavia_gt'
+# dataset = 'Pavia'
+# dataset_HSI = 'pavia'
+# dataset_gt = 'pavia_gt'
 
 data_mat_dir = '../data/HSI_datasets/samples/'
 data_h5_dir = '../data/HSI_datasets/data_h5/'

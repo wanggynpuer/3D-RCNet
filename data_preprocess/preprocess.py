@@ -6,7 +6,7 @@ samples_dir = '../data/HSI_datasets/samples/'
 source_dir = '../data/HSI_datasets/data_h5/'
 
 parser = argparse.ArgumentParser(description='HSI classification')
-parser.add_argument('--dataset', type=str, default='HoustonU')
+parser.add_argument('--dataset', type=str, default='Indian_pines')
 parser.add_argument('--window_size', type=int, default=27)
 args = parser.parse_args()
 

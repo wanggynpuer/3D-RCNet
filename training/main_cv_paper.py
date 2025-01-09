@@ -1,18 +1,13 @@
 import time
 import argparse
-import os
-
-os.environ['CUDA_VISIBLE_DEVICES'] = "1"
 import torch.optim as optim
-import sys
 
-sys.path.append('./models/')
-from models.DRCNet import dict
+from models.DRCNet import HSIVit
 from functions_for_training import *
 
-sys.path.append('..')
 from data_preprocess.functions_for_samples_extraction import h5_loader
-from functions_for_evaluating import acc_calculation
+from training.functions_for_evaluating import acc_calculation
+from training.functions_for_evaluating import measure_model_performance
 from torch.nn import DataParallel
 from tensorboardX import SummaryWriter
 import math
@@ -83,14 +78,19 @@ else:
     num_cla = 15
     image_size = (1, 144, 27, 27)
     heads = 4
-# model = DataParallel(dict[args.model_name](num_classes=num_cla, dropout_keep_prob=0))
-# model = DataParallel(dict[args.model_name](num_classes=num_cla,depth=[2, 3, 3], dropout = [0., 0.],heads = [4, 8]))
-model = DataParallel(dict[args.model_name](depths=[1, 2, 4, 2], dims=[32, 64, 128, 256], num_classes=num_cla))
 
-if args.use_cuda:
-    model.cuda()
 
-# optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, weight_decay=1e-5)
+# Model definition
+model = DataParallel(HSIVit(depths=[1, 2, 4, 2], dims=[32, 64, 128, 256], num_classes=num_cla))
+device = torch.device("cuda:0" if args.use_cuda and torch.cuda.is_available() else "cpu")
+model = model.to(device)  # 将模型移动到指定设备
+
+# Resume the training process (if restore is specified)
+start_epoch = 0
+if args.restore and len(os.listdir(trained_model_dir)):
+    model, start_epoch = model_restore(model, trained_model_dir)
+
+# Scheduler and optimizer
 T = args.epochs
 t = args.epochs * 0.1
 # cosine learning rate
@@ -100,10 +100,7 @@ lambda1 = lambda epoch: (0.9 * epoch / t + 0.1) if epoch < t else 0.01 if 0.5 * 
 optimizer = optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=1e-5)
 scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda1)
 
-start_epoch = 0
-if args.restore and len(os.listdir(trained_model_dir)):
-    model, start_epoch = model_restore(model, trained_model_dir)
-
+# Training process
 writer = SummaryWriter(logdir='log')
 for epoch in range(start_epoch + 1, args.epochs + 1):
     start = time.time()
@@ -118,19 +115,19 @@ for epoch in range(start_epoch + 1, args.epochs + 1):
         torch.save(model.cpu().state_dict(), model_name)
         # if args.use_cuda: model.cuda()
         # train_loss, train_acc = val(model, train_loader, args)
-        # print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))   
+        # print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))
         # val_loss, val_acc = val(model, val_loader, args)
         # print('val_loss: {:.4f}, val_acc: {:.2f}%'.format(val_loss, val_acc))
         #
-        # # test_loss, test_acc = val(model, test_loader, args)
-        # # print('test_loss: {:.4f}, test_acc: {:.2f}%'.format(test_loss, test_acc))
-        # # writer.add_scalars('loss',{'Train':train_loss,'Test':test_loss}, epoch)
-        # # writer.add_scalars('acc',{'Train':train_acc,'Test':test_acc}, epoch)
-        # # writer.add_scalars('lr',{'lr':lr},epoch)
-        # # with open(train_info_record_txt, 'a') as f:
-        # #     f.write('timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f},test_loss:{:.6f}, test_acc:{:.2f}'.format(
-        # #         (end-start)/60, optimizer.param_groups[0]['lr'], epoch, train_loss, train_acc, test_loss, test_acc) + '\n'
-        # #     )
+        test_loss, test_acc = val(model, test_loader, args)
+        print('test_loss: {:.4f}, test_acc: {:.2f}%'.format(test_loss, test_acc))
+        writer.add_scalars('loss',{'Train':train_loss,'Test':test_loss}, epoch)
+        writer.add_scalars('acc',{'Train':train_acc,'Test':test_acc}, epoch)
+        writer.add_scalars('lr',{'lr':lr},epoch)
+        with open(train_info_record_txt, 'a') as f:
+            f.write('timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f},test_loss:{:.6f}, test_acc:{:.2f}'.format(
+                (end-start)/60, optimizer.param_groups[0]['lr'], epoch, train_loss, train_acc, test_loss, test_acc) + '\n'
+            )
         # with open(train_info_record_txt, 'a') as f:
         #     f.write(
         #         'timecost:{:.2f}, lr:{}, epoch:{}, train_loss:{:.4f}, train_acc:{:.2f}, val_loss:{:.6f}, val_acc:{:.2f}'.format(
@@ -139,7 +136,7 @@ for epoch in range(start_epoch + 1, args.epochs + 1):
         #         )
     scheduler.step()
 
-    if args.use_cuda: model.cuda()
+    # if args.use_cuda: model.cuda()
     train_loss, train_acc = val(model, train_loader, args)
     print('train_loss: {:.4f}, train_acc: {:.2f}%'.format(train_loss, train_acc))
     # val_loss, val_acc = val(model, val_loader, args)
@@ -158,10 +155,20 @@ for epoch in range(start_epoch + 1, args.epochs + 1):
     # scheduler.step(val_loss)
 writer.close()
 
+# 模型评估和性能测量
 acc = acc_calculation(model, test_loader, args)
 excel_write(train_info_record, acc)
 
-source_dir = '../data/HSI_datasets/data_h5/'
-dataset_source_dir = source_dir + '{}.h5'.format(args.dataset)
-HSI_data, HSI_gt = h5_loader(dataset_source_dir)
+# 获取类别映射图
 get_cls_map.get_cls_map(model, all_loader, HSI_gt)
+
+# 计算模型的性能指标（如 FLOPs 和参数量）
+metrics = measure_model_performance(model, test_loader, device)
+
+# 打印测速结果
+print("Performance Metrics:")
+for key, value in metrics.items():
+    if key in ["flops", "params"]:
+        print(f"{key.capitalize()}: {value / 1e6:.2f} M")  # 转换为百万级单位
+    else:
+        print(f"{key.capitalize()}: {value:.4f} seconds")

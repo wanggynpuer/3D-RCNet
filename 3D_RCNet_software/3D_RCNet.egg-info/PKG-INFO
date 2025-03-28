@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: 3D_RCNet
+Version: 0.1.0
+Summary: A package for 3D RCNet with pretrained model
+Home-page: https://github.com/wanggynpuer/3D-RCNet
+Author: wanggynpuer
+Author-email: 3034711245@qq.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Dist: torch==1.12.0
+Requires-Dist: numpy==1.21.2

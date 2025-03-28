@@ -132,11 +132,25 @@ Fig11. Feature extraction on Indian Pine dataset using 3D-ConvBlock and 3D-RCBlo
 
 <br>
 
+## **Environment Setup and Installation**
+
+```markdown
+torch==1.12.0
+```
+
+`pip install 3D-RCNet `
+
+<br>
+
+<br>
+
 ### Directory and File Structure
 
 ```
 ./                                            # current (project) directory
 │
+├── 3D_RCNet_software                         # Independent software package
+|
 ├── assets									  # figures and tables 
 │
 ├── data/                                     # Files to be processed in the dataset
@@ -178,12 +192,4 @@ The `models` folder contains our proposed 3D-RCNet.
   - functions_for_training.py
   - functions_for_evaluating.py
 
-
-
 <br>
-
-## **Environment Setup and Installation**
-
-`python: 3.11`
-
-**NOTE: Latest PyTorch requires Python 3.8 or later.**

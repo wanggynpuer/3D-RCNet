@@ -1,0 +1,6 @@
+torch==1.12.0
+numpy>=1.23.5
+gradio>=3.50.2
+fastapi>=0.115.12
+uvicorn>=0.34.0
+python-multipart

@@ -1,0 +1,6 @@
+[console_scripts]
+drcnet = D_RCNet.inference:main
+drcnet-api = D_RCNet.API_server:main
+
+[gui_scripts]
+drcnet-gui = D_RCNet.GUI_app:main

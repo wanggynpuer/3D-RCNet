@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: D_RCNet
+Version: 0.2.7
+Summary: A package for 3D RCNet with pretrained model
+Home-page: https://github.com/wanggynpuer/3D-RCNet
+Author: wanggynpuer
+Author-email: 3034711245@qq.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Dist: torch==1.12.0
+Requires-Dist: numpy>=1.23.5
+Requires-Dist: gradio>=3.50.2
+Requires-Dist: fastapi>=0.115.12
+Requires-Dist: uvicorn>=0.34.0
+Requires-Dist: python-multipart
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: summary

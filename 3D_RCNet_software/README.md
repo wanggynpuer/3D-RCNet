@@ -54,7 +54,14 @@
 
    - 进行预测
 
-     ``` output = model(input_data)```
+     ``` output = model(input_data)``
+
+   - 命令行进行
+
+     - **随机输入**
+       `python inference.py `
+     - **指定输入输出**
+       `python inference.py --input sample.npy --output prediction.npy`
 
 6. **预训练模型**
 

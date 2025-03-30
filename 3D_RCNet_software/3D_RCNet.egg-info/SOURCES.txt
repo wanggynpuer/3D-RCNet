@@ -1,9 +1,0 @@
-MANIFEST.in
-README.md
-setup.py
-3D_RCNet/trained_model300.pkl
-3D_RCNet.egg-info/PKG-INFO
-3D_RCNet.egg-info/SOURCES.txt
-3D_RCNet.egg-info/dependency_links.txt
-3D_RCNet.egg-info/requires.txt
-3D_RCNet.egg-info/top_level.txt

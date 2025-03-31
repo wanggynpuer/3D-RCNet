@@ -40,6 +40,12 @@ def load_model(model_path):
             map_location='cpu',
             # weights_only=True
         )
+
+    except RuntimeError as e:
+        if "Unsafe memory" in str(e):
+            raise RuntimeError("检测到潜在危险数据，请使用可信模型文件") from e
+        else:
+            raise
     except Exception as e:
         raise RuntimeError(f"模型加载失败：{str(e)}") from e
 
@@ -47,7 +53,7 @@ def load_model(model_path):
     state_dict = {k.replace('module.', ''): v for k, v in state_dict.items()}
 
     # 安全加载参数
-    model.load_state_dict(state_dict)
+    model.load_state_dict(state_dict, strict=True)
     model.eval()
     return model
 
